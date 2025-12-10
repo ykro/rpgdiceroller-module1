@@ -12,6 +12,11 @@ Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñad
   - Otros valores: Texto en gris estándar
 - Botón deshabilitado durante la animación para evitar múltiples lanzamientos
 
+## Material de Clase
+
+El contenido teórico y práctico para el módulo se encuentra aquí:
+*   [Diapositivas (Marp)](slides/slides.md)
+
 ## Conceptos Cubiertos
 
 ### Kotlin & Corrutinas
