@@ -1,6 +1,6 @@
 # RPG Dice Roller App
 
-Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñada como laboratorio introductorio para aprender desarrollo Android con Jetpack Compose.
+Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñada como módulo 1 de un curso introductorio de 4 módulos para aprender desarrollo Android con Jetpack Compose.
 
 ## Funcionalidad
 
