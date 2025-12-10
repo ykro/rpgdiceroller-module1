@@ -14,6 +14,11 @@ Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñad
 
 ![Critical Hit Screenshot](assets/critical_hit.png)
 
+## Demo
+
+Mira el funcionamiento final del módulo:
+[▶️ Ver Video Demo (WebM)](assets/module1.webm)
+
 ## Material de Clase
 
 El contenido teórico y práctico para el módulo se encuentra aquí:
