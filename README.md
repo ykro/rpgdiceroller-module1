@@ -18,7 +18,7 @@ Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñad
 
 Mira el funcionamiento final del módulo:
 
-![Demo Video](assets/module1.mp4)
+[▶️ Ver Video Demo (MP4)](assets/module1.mp4)
 
 ## Material de Clase
 
