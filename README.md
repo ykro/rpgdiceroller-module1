@@ -12,7 +12,7 @@ Una aplicación Android educativa que simula un dado de 20 caras (d20), diseñad
   - Otros valores: Texto en gris estándar
 - Botón deshabilitado durante la animación para evitar múltiples lanzamientos
 
-![Critical Hit Screenshot](slides/assets/critical_hit.png)
+![Critical Hit Screenshot](assets/critical_hit.png)
 
 ## Material de Clase
 
