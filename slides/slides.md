@@ -2,9 +2,19 @@
 marp: true
 theme: default
 paginate: true
+backgroundColor: #fff
+style: |
+  section { font-family: 'Inter', sans-serif; }
+  h1 { color: #2E7D32; }
+  h2 { color: #1B5E20; }
+  code { background-color: #f0f0f0; padding: 0.2em; border-radius: 4px; }
+  pre { background-color: #f5f5f5; border-radius: 8px; }
+  .center { text-align: center; }
+  .small { font-size: 0.8em; }
 ---
 
-# Lesson 1: Android Basics
+<!-- _class: lead -->
+# Module 1: Android Basics
 ## Kotlin, Coroutines, Android Framework & Jetpack Compose
 ### Adrián Catalán
 ### adriancatalan@galileo.edu
@@ -39,6 +49,7 @@ We are building a Digital D20 for RPG games.
 ---
 
 
+<!-- _class: lead -->
 # 1. Kotlin & Coroutines
 
 ---
@@ -138,29 +149,20 @@ val randomValue = (1..20).random()
 
 The magic happens when the thread is **freed**.
 
-```mermaid
-sequenceDiagram
-    participant T as Main Thread
-    participant C as Coroutine
-    participant N as Network/Disk
-    
-    T->>C: Launch
-    C->>N: Request Data
-    C-->>T: SUSPENDS (I'm waiting)
-    
-    note over T: Thread is able to draw UI
-    
-    N-->>C: Data Ready
-    C->>T: RESUMES (I'm back)
-    C->>T: Show Data
+```text
+[Main Thread]        [Coroutine]        [Network/Disk]
+      |                   |                   |
+      | --- Launch -----> |                   |
+      |                   | -- Request Data ->|
+      | <--- SUSPEND ---- |                   |
+      |                   |                   |
+(Drawing UI)              |                   |
+      |                   | <--- Data Ready --|
+      | <---- RESUME ---- |                   |
+      |                   |                   |
+      | <--- Show Data -- |                   |
+      v                   v                   v
 ```
----
-
-## Visualizing "Suspend"
-
-The magic happens when the thread is **freed**.
-
-![height:500px](assets/diag1.jpg)
 
 ---
 
@@ -283,20 +285,9 @@ fun rollDice() {
     }
     ```
 
----
 
-## Resources: Kotlin & Coroutines
 
-Want to learn more?
-
-*   [Kotlin Docs: Coroutines Guide](https://kotlinlang.org/docs/coroutines-guide.html) - The official bible.
-*   [Android Developers: Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) - Best practices for Android.
-*   [Kotlin Playground](https://play.kotlinlang.org/) - Try code in your browser.
-*   [Codelab: Use Coroutines](https://developer.android.com/codelabs/kotlin-coroutines-intro) - Hands-on practice.
-*   [Flow Documentation](https://kotlinlang.org/docs/flow.html) - Reactive streams.
-
----
-
+<!-- _class: lead -->
 # 2. Android
 
 ---
@@ -398,18 +389,9 @@ private const val TAG = "MainActivity"
 Log.d(TAG, "onCreate: Edge-to-Edge enabled")
 ```
 
----
 
-## Resources: Android Framework
 
-*   [The Activity Lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle) - Detailed diagrams.
-*   [Analyze with Logcat](https://developer.android.com/studio/debug/logcat) - Master the logs.
-*   [Guide to App Architecture](https://developer.android.com/topic/architecture) - How to structure apps.
-*   [Android Studio Debugging](https://developer.android.com/studio/debug) - Breakpoints and inspectors.
-*   [Codelab: Android Basics](https://developer.android.com/courses/android-basics-compose/course) - Full course.
-
----
-
+<!-- _class: lead -->
 # 3. Compose UI Basics
 
 ---
@@ -528,18 +510,9 @@ Box(
 *   `.clickable { ... }`
 
 
----
 
-## Resources: Jetpack Compose
 
-*   [Compose Layouts Basics](https://developer.android.com/jetpack/compose/layouts) - Columns, Rows, Boxes.
-*   [Thinking in Compose](https://developer.android.com/jetpack/compose/mental-model) - Shift your mindset.
-*   [List of Compose Modifiers](https://developer.android.com/jetpack/compose/modifiers-list) - Cheatsheet.
-*   [State in Compose](https://developer.android.com/jetpack/compose/state) - Deep dive on `remember`.
-*   [Codelab: Jetpack Compose Basics](https://developer.android.com/codelabs/jetpack-compose-basics) - _Start here_ Codelab
-
----
-
+<!-- _class: lead -->
 # 4. Deep Dive
 
 ---
@@ -547,31 +520,21 @@ Box(
 
 ## 1. The "Roll" Flow Diagram
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant UI as Compose UI (Main Thread)
-    participant Logic as Coroutine (Suspend)
-    participant State as MutableState
-    
-    User->>UI: Click Roll
-    UI->>Logic: Launch Coroutine
-    
-    note over Logic: Suspends Main Thread Interaction? no
-    
-    loop 15 Times
-        Logic->>State: diceValue = Random
-        State-->>UI: Recompose (Update Text)
-        Logic->>Logic: delay(80ms) (Yield control)
-    end
-    
-    Logic->>State: diceValue = Final
+```text
+  [User]          [Compose UI]        [Coroutine]         [State]
+    |                  |                   |                 |
+    | -- Click Roll -> |                   |                 |
+    |                  | --- Launch -----> |                 |
+    |                  |                   |                 |
+    |                  |          (Loop 15 Times)        |
+    |                  |                   |                 |
+    |                  |                   | -- Update ----> |
+    |                  | <--- Recompose -- |                 |
+    |                  |                   | - delay(80ms) - |
+    |                  |                   |                 |
+    |                  |                   | -- Final Val -> |
+    v                  v                   v                 v
 ```
----
-
-## 1. The "Roll" Flow Diagram
-
-![height:500px](assets/diag2.jpg)
 
 ---
 
@@ -635,6 +598,7 @@ The **Kotlin Compiler** rewrites your code.
 
 ---
 
+<!-- _class: lead -->
 # 6. Challenge Lab
 ---
 
@@ -709,3 +673,31 @@ You are building the "New Character" screen for a D&D app. Players need to roll 
     }
     ```
 
+
+<!-- _class: lead -->
+# Resources & Wrap-up
+
+---
+
+## Resources
+
+**Kotlin & Coroutines**
+*   [Kotlin Docs: Coroutines Guide](https://kotlinlang.org/docs/coroutines-guide.html)
+*   [Android Developers: Kotlin Coroutines](https://developer.android.com/kotlin/coroutines)
+*   [Kotlin Playground](https://play.kotlinlang.org/)
+*   [Codelab: Use Coroutines](https://developer.android.com/codelabs/kotlin-coroutines-intro)
+*   [Flow Documentation](https://kotlinlang.org/docs/flow.html)
+
+**Android Framework**
+*   [The Activity Lifecycle](https://developer.android.com/guide/components/activities/activity-lifecycle)
+*   [Analyze with Logcat](https://developer.android.com/studio/debug/logcat)
+*   [Guide to App Architecture](https://developer.android.com/topic/architecture)
+*   [Android Studio Debugging](https://developer.android.com/studio/debug)
+*   [Codelab: Android Basics](https://developer.android.com/courses/android-basics-compose/course)
+
+**Jetpack Compose**
+*   [Compose Layouts Basics](https://developer.android.com/jetpack/compose/layouts)
+*   [Thinking in Compose](https://developer.android.com/jetpack/compose/mental-model)
+*   [List of Compose Modifiers](https://developer.android.com/jetpack/compose/modifiers-list)
+*   [State in Compose](https://developer.android.com/jetpack/compose/state)
+*   [Codelab: Jetpack Compose Basics](https://developer.android.com/codelabs/jetpack-compose-basics)
